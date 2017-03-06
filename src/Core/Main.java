@@ -44,6 +44,9 @@ public class Main extends Application {
     private Label newGameLabel = new Label("New Game");
     private Label highScoreLabel = new Label("HighScore");
     private Label exitLabel = new Label("Exit");
+
+    private Label optionsLabel = new Label("Options");
+    private Label backLabel = new Label("< Back");
     //endregion
 
     public static boolean running = false;
@@ -59,6 +62,8 @@ public class Main extends Application {
         newGameLabel.setFont(Font.font("Press Start 2P", 20));
         highScoreLabel.setFont(Font.font("Press Start 2P", 20));
         exitLabel.setFont(Font.font("Press Start 2P", 20));
+        optionsLabel.setFont(Font.font("Press Start 2P", 20));
+        backLabel.setFont(Font.font("Press Start 2P", 20));
 
         scoreLabel.setTranslateX(600);
         scoreLabel.setTextFill(Color.WHITE);
@@ -78,15 +83,25 @@ public class Main extends Application {
         newGameLabel.setTextFill(Color.WHITE);
         newGameLabel.setVisible(false);
 
-        exitLabel.setTranslateX(370);
-        exitLabel.setTranslateY(500);
-        exitLabel.setTextFill(Color.WHITE);
-        exitLabel.setVisible(false);
-
         highScoreLabel.setTranslateX(320);
         highScoreLabel.setTranslateY(450);
         highScoreLabel.setTextFill(Color.WHITE);
         highScoreLabel.setVisible(false);
+
+        optionsLabel.setTranslateX(340);
+        optionsLabel.setTranslateY(500);
+        optionsLabel.setTextFill(Color.WHITE);
+        optionsLabel.setVisible(false);
+
+        exitLabel.setTranslateX(370);
+        exitLabel.setTranslateY(550);
+        exitLabel.setTextFill(Color.WHITE);
+        exitLabel.setVisible(false);
+
+        backLabel.setTranslateX(340);
+        backLabel.setTranslateY(550);
+        backLabel.setTextFill(Color.WHITE);
+        backLabel.setVisible(false);
         //endregion
         //region Pipe init
         for (int i = 0; i < 100; i++) {
@@ -121,7 +136,7 @@ public class Main extends Application {
         //endregion
         //region Components
         gameRoot.getChildren().add(ship);
-        appRoot.getChildren().addAll(gameRoot, descLabel, scoreLabel, failLabel, newGameLabel, highScoreLabel, exitLabel);
+        appRoot.getChildren().addAll(gameRoot, descLabel, scoreLabel, failLabel, newGameLabel, highScoreLabel, optionsLabel, exitLabel, backLabel);
         //endregion
 
         return appRoot;
@@ -145,7 +160,8 @@ public class Main extends Application {
     }
 
     private void newGame() {
-    	newGameLabel.setVisible(true);
+        if (!backLabel.isVisible())
+    	    newGameLabel.setVisible(true);
 
         //region newGameLabel scale
         newGameLabel.setOnMouseEntered(MouseEvent -> {
@@ -169,7 +185,9 @@ public class Main extends Application {
                 failLabel.setVisible(false);
                 newGameLabel.setVisible(false);
                 highScoreLabel.setVisible(false);
+                optionsLabel.setVisible(false);
                 exitLabel.setVisible(false);
+                backLabel.setVisible(false);
 
             } else if (failGame) {
                 running = true;
@@ -183,14 +201,17 @@ public class Main extends Application {
                 failLabel.setVisible(false);
                 newGameLabel.setVisible(false);
                 highScoreLabel.setVisible(false);
+                optionsLabel.setVisible(false);
                 exitLabel.setVisible(false);
+                backLabel.setVisible(false);
             }
         });
         //endregion
     }
     
     private void highScore() {
-    	highScoreLabel.setVisible(true);
+        if (!backLabel.isVisible())
+    	    highScoreLabel.setVisible(true);
 
         //region highScoreLabel scale
         highScoreLabel.setOnMouseEntered(MouseEvent -> {
@@ -205,12 +226,46 @@ public class Main extends Application {
         //endregione
 
         highScoreLabel.setOnMouseClicked(MouseEvent -> {
-                running = false;
+            backLabel.setVisible(true);
+            failLabel.setVisible(false);
+            newGameLabel.setVisible(false);
+            highScoreLabel.setVisible(false);
+            optionsLabel.setVisible(false);
+            exitLabel.setVisible(false);
+            backMenu();
         });
     }
-    
+
+    private void optionsMenu() {
+        if (!backLabel.isVisible())
+            optionsLabel.setVisible(true);
+
+        //region optionsLabel scale
+        optionsLabel.setOnMouseEntered(MouseEvent -> {
+            optionsLabel.setScaleX(1.5);
+            optionsLabel.setScaleY(1.5);
+        });
+
+        optionsLabel.setOnMouseExited(MouseEvent -> {
+            optionsLabel.setScaleX(1);
+            optionsLabel.setScaleY(1);
+        });
+        //endregion
+
+        optionsLabel.setOnMouseClicked(MouseEvent -> {
+                backLabel.setVisible(true);
+                failLabel.setVisible(false);
+                newGameLabel.setVisible(false);
+                highScoreLabel.setVisible(false);
+                optionsLabel.setVisible(false);
+                exitLabel.setVisible(false);
+                backMenu();
+        });
+    }
+
     private void exit() {
-    	exitLabel.setVisible(true);
+        if (!backLabel.isVisible())
+            exitLabel.setVisible(true);
 
         //region exitLabel scale
         exitLabel.setOnMouseEntered(MouseEvent -> {
@@ -228,10 +283,38 @@ public class Main extends Application {
             System.exit(0)
         );
     }
-    
+
+    private void backMenu(){
+        //region backLabel scale
+        backLabel.setOnMouseEntered(MouseEvent -> {
+            backLabel.setScaleY(1.5);
+            backLabel.setScaleX(1.5);
+        });
+
+        backLabel.setOnMouseExited(MouseEvent -> {
+            backLabel.setScaleX(1);
+            backLabel.setScaleY(1);
+        });
+        //endregion
+
+        backLabel.setOnMouseClicked(MouseEvent -> {
+            if (!running && !failGame) {
+                descLabel.setVisible(true);
+            } else {
+                failLabel.setVisible(true);
+            }
+            newGameLabel.setVisible(true);
+            highScoreLabel.setVisible(true);
+            optionsLabel.setVisible(true);
+            exitLabel.setVisible(true);
+            backLabel.setVisible(false);
+        });
+    }
+
     private void update() {
         playMusic();
         if (running) {
+            scoreLabel.setVisible(true);
             if (ship.velocity.getY() < 5) {
                 ship.velocity = ship.velocity.add(0, 1);
             }
@@ -247,14 +330,22 @@ public class Main extends Application {
                 }
             });
         } else if ( !running && !failGame) {
-        	descLabel.setVisible(true);
-    		newGame();
-        	highScore();
-            exit();
-        } else if (!running && failGame){
-        	failLabel.setVisible(true);
+            if (backLabel.isVisible()){
+        	    descLabel.setVisible(false);
+            } else {
+                descLabel.setVisible(true);
+            }
+            scoreLabel.setVisible(false);
         	newGame();
         	highScore();
+            optionsMenu();
+            exit();
+        } else if (!running && failGame){
+            if (!backLabel.isVisible())
+                failLabel.setVisible(true);
+        	newGame();
+        	highScore();
+            optionsMenu();
             exit();
         }
     }
