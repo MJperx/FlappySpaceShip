@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -44,13 +45,16 @@ public class Main extends Application {
     private Label newGameLabel = new Label("New Game");
     private Label highScoreLabel = new Label("HighScore");
     private Label exitLabel = new Label("Exit");
-
     private Label optionsLabel = new Label("Options");
     private Label backLabel = new Label("< Back");
+    private Label soundText = new Label("Sound:");
     //endregion
+
+    private RadioButton onButton = new RadioButton("ON");
 
     public static boolean running = false;
     public static boolean failGame = false;
+    public static boolean isOptions = false;
 
     private Parent createContent(){
         gameRoot.setPrefSize(winWidth, winHeight);
@@ -61,9 +65,24 @@ public class Main extends Application {
         failLabel.setFont(Font.font("Press Start 2P", 60));
         newGameLabel.setFont(Font.font("Press Start 2P", 20));
         highScoreLabel.setFont(Font.font("Press Start 2P", 20));
-        exitLabel.setFont(Font.font("Press Start 2P", 20));
         optionsLabel.setFont(Font.font("Press Start 2P", 20));
+        exitLabel.setFont(Font.font("Press Start 2P", 20));
         backLabel.setFont(Font.font("Press Start 2P", 20));
+        onButton.setFont(Font.font("Press Start 2P", 20));
+        soundText.setFont(Font.font("Press Start 2P", 20));
+
+        soundText.setTranslateX(310);
+        soundText.setTranslateY(405);
+        soundText.setTextFill(Color.WHITE);
+        soundText.setVisible(false);
+
+        onButton.setTranslateX(430);
+        onButton.setTranslateY(400);
+        onButton.getStyleClass().remove("radio-button");
+        onButton.getStyleClass().add("toggle-button");
+        onButton.setBackground(Background.EMPTY);
+        onButton.setTextFill(Color.WHITE);
+        onButton.setVisible(false);
 
         scoreLabel.setTranslateX(600);
         scoreLabel.setTextFill(Color.WHITE);
@@ -136,10 +155,22 @@ public class Main extends Application {
         //endregion
         //region Components
         gameRoot.getChildren().add(ship);
-        appRoot.getChildren().addAll(gameRoot, descLabel, scoreLabel, failLabel, newGameLabel, highScoreLabel, optionsLabel, exitLabel, backLabel);
+        appRoot.getChildren().addAll(gameRoot, descLabel, scoreLabel, failLabel,
+                                     newGameLabel, highScoreLabel, optionsLabel,
+                                     exitLabel, backLabel, onButton, soundText
+                                     );
         //endregion
 
         return appRoot;
+    }
+
+    private void onSoundButton(){
+        if (onButton.isSelected()) {
+            mediaPlayer.pause();
+            onButton.setText("OFF");
+        } else {
+            onButton.setText("ON");
+        }
     }
 
     private void playMusic(){
@@ -253,12 +284,18 @@ public class Main extends Application {
         //endregion
 
         optionsLabel.setOnMouseClicked(MouseEvent -> {
+                isOptions = true;
+                optionsLabel.setFont(Font.font("Press Start 2P", 40));
+                optionsLabel.setTranslateX(270);
+                optionsLabel.setTranslateY(300);
+
                 backLabel.setVisible(true);
                 failLabel.setVisible(false);
                 newGameLabel.setVisible(false);
                 highScoreLabel.setVisible(false);
-                optionsLabel.setVisible(false);
                 exitLabel.setVisible(false);
+                soundText.setVisible(true);
+                onButton.setVisible(true);
                 backMenu();
         });
     }
@@ -298,16 +335,25 @@ public class Main extends Application {
         //endregion
 
         backLabel.setOnMouseClicked(MouseEvent -> {
+            isOptions = false;
             if (!running && !failGame) {
                 descLabel.setVisible(true);
             } else {
                 failLabel.setVisible(true);
+            }
+
+            if (!isOptions){
+                optionsLabel.setFont(Font.font("Press Start 2P", 20));
+                optionsLabel.setTranslateX(340);
+                optionsLabel.setTranslateY(500);
             }
             newGameLabel.setVisible(true);
             highScoreLabel.setVisible(true);
             optionsLabel.setVisible(true);
             exitLabel.setVisible(true);
             backLabel.setVisible(false);
+            onButton.setVisible(false);
+            soundText.setVisible(false);
         });
     }
 
@@ -339,6 +385,7 @@ public class Main extends Application {
         	newGame();
         	highScore();
             optionsMenu();
+            onSoundButton();
             exit();
         } else if (!running && failGame){
             if (!backLabel.isVisible())
@@ -346,6 +393,7 @@ public class Main extends Application {
         	newGame();
         	highScore();
             optionsMenu();
+            onSoundButton();
             exit();
         }
     }
