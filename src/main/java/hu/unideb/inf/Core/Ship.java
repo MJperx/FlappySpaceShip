@@ -1,4 +1,4 @@
-package Core;
+package hu.unideb.inf.Core;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -10,13 +10,12 @@ public class Ship extends Pane {
 
     public static int width = 30;
     public static int height = 30;
-    private static final String birdURL = "res/spaceShip.png";
 
     public Point2D velocity;
     Rectangle rect;
 
     public Ship() {
-        Image img = new Image(getClass().getClassLoader().getResource(birdURL).toExternalForm());
+        Image img = new Image(getClass().getResource("/images/spaceShip.png").toExternalForm());
         rect = new Rectangle(width, height);
         rect.setFill(new ImagePattern(img, 0, 0, 1, 1, true));
         velocity = new Point2D(0,0);
@@ -77,5 +76,11 @@ public class Ship extends Pane {
 
     public void jump() {
         velocity = new Point2D(3,-15);
+    }
+
+    public void shipNull(){
+        velocity.add(0,0);
+        setTranslateX(100);
+        setTranslateY(300);
     }
 }

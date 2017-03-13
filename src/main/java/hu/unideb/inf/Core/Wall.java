@@ -1,4 +1,4 @@
-package Core;
+package hu.unideb.inf.Core;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -9,8 +9,8 @@ public class Wall extends Pane{
 
     public static int pipeWidth = 50;
 
-    private static final String pipe_0_URL = "res/pipe_0.png";
-    private static final String pipe_1_URL = "res/pipe_1.png";
+    private static final String pipe_0_URL = "/images/pipe_0.png";
+    private static final String pipe_1_URL = "/images/pipe_1.png";
 
     Rectangle rect;
     public int height;
@@ -21,8 +21,8 @@ public class Wall extends Pane{
         this.height = height;
         this.orientation = orientation;
 
-        Image img_0 = new Image(getClass().getClassLoader().getResource(pipe_0_URL).toExternalForm());
-        Image img_1 = new Image(getClass().getClassLoader().getResource(pipe_1_URL).toExternalForm());
+        Image img_0 = new Image(getClass().getResource(pipe_0_URL).toExternalForm());
+        Image img_1 = new Image(getClass().getResource(pipe_1_URL).toExternalForm());
 
         rect = new Rectangle(pipeWidth, height);
 
