@@ -1,5 +1,7 @@
 package hu.unideb.inf.Core;
 
+import hu.unideb.inf.Dao.HigScoreToXML;
+import hu.unideb.inf.Dao.HighScore;
 import hu.unideb.inf.View.MediaController;
 import hu.unideb.inf.View.ViewController;
 import javafx.animation.*;
@@ -32,6 +34,8 @@ public class Main extends Application {
     public static boolean failGame = false;
     public static boolean isOptions = false;
 
+    public static int failGameCount = 0;
+
     private Parent createContent(){
         gameRoot.setPrefSize(winWidth, winHeight);
 
@@ -59,7 +63,9 @@ public class Main extends Application {
         gameRoot.getChildren().add(ship);
         appRoot.getChildren().addAll(gameRoot, viewController.descLabel, viewController.scoreLabel, viewController.failLabel,
                                      viewController.newGameLabel, viewController.highScoreLabel, viewController.optionsLabel,
-                                     viewController.exitLabel, viewController.backLabel, viewController.onButton, viewController.soundText
+                                     viewController.exitLabel, viewController.backLabel, viewController.onButton, viewController.soundText,
+                                     viewController.leadBoardLabel, viewController.doneLabel, viewController.playerName,
+                                     viewController.playerNameLabel
                                      );
 
         return appRoot;
@@ -94,6 +100,7 @@ public class Main extends Application {
             viewController.highScore();
             viewController.optionsMenu();
             mediaController.onSoundButton();
+            viewController.addToLeadBoardMenu();
             viewController.exit();
         } else if (!running && failGame){
             if (!viewController.backLabel.isVisible())
@@ -101,6 +108,7 @@ public class Main extends Application {
             viewController.newGame(ship);
             viewController.highScore();
             viewController.optionsMenu();
+            viewController.addToLeadBoardMenu();
             mediaController.onSoundButton();
             viewController.exit();
         }
