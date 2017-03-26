@@ -1,8 +1,7 @@
 package hu.unideb.inf.View;
 
-import hu.unideb.inf.Core.Main;
 import hu.unideb.inf.Core.Ship;
-import hu.unideb.inf.Dao.HigScoreToXML;
+import hu.unideb.inf.Dao.HighScoreToXML;
 import hu.unideb.inf.Dao.HighScore;
 import hu.unideb.inf.Dao.HighScoreXMLObj;
 import javafx.scene.control.Label;
@@ -17,7 +16,7 @@ import static hu.unideb.inf.Core.Main.*;
 public class ViewController {
 
     public Label descLabel = new Label("Flappy spaceship");
-    public Label scoreLabel = new Label("Score: " + score);
+    public static Label scoreLabel = new Label("Score: " + score);
     public Label failLabel = new Label("FAIL");
     public Label newGameLabel = new Label("New Game");
     public Label highScoreLabel = new Label("HighScore");
@@ -28,13 +27,14 @@ public class ViewController {
     public Label leadBoardLabel = new Label("Add to leadboard");
     public Label doneLabel = new Label("Done");
     public Label playerNameLabel = new Label("Name:");
+    public Label resumeLabel = new Label("Resume");
     public RadioButton onButton = new RadioButton("ON");
     public TextField playerName = new TextField();
 
     public static String player;
 
     private HighScore highScore = new HighScore();
-    private HigScoreToXML higScoreToXML = new HigScoreToXML();
+    private HighScoreToXML highScoreToXML = new HighScoreToXML();
 
     public ViewController() {
     }
@@ -70,6 +70,9 @@ public class ViewController {
         failLabel.setStyle("-fx-translate-x: 300; -fx-translate-y: 300; -fx-text-fill: white;  -fx-font-family: 'Press Start 2P'; -fx-font-size: 60px;");
         failLabel.setVisible(false);
 
+        resumeLabel.setStyle("-fx-translate-x: 345; -fx-translate-y: 350; -fx-text-fill: white;  -fx-font-family: 'Press Start 2P'; -fx-font-size: 20px;");
+        resumeLabel.setVisible(false);
+
         newGameLabel.setStyle("-fx-translate-x: 330; -fx-translate-y: 400; -fx-text-fill: white;  -fx-font-family: 'Press Start 2P'; -fx-font-size: 20px;");
         newGameLabel.setVisible(false);
 
@@ -97,6 +100,7 @@ public class ViewController {
         doneLabel.setVisible(false);
         playerName.setVisible(false);
         playerNameLabel.setVisible(false);
+        resumeLabel.setVisible(false);
     }
 
     public void newGame(Ship ship) {
@@ -154,6 +158,7 @@ public class ViewController {
             doneLabel.setVisible(false);
             playerName.setVisible(false);
             playerNameLabel.setVisible(false);
+            resumeLabel.setVisible(false);
             backMenu();
         });
     }
@@ -189,6 +194,7 @@ public class ViewController {
             doneLabel.setVisible(false);
             playerName.setVisible(false);
             playerNameLabel.setVisible(false);
+            resumeLabel.setVisible(false);
             backMenu();
         });
     }
@@ -251,6 +257,7 @@ public class ViewController {
             doneLabel.setVisible(false);
             playerName.setVisible(false);
             playerNameLabel.setVisible(false);
+            resumeLabel.setVisible(false);
         });
     }
 
@@ -278,6 +285,7 @@ public class ViewController {
             optionsLabel.setVisible(false);
             exitLabel.setVisible(false);
             leadBoardLabel.setVisible(false);
+            resumeLabel.setVisible(false);
             backMenu();
 
             playerName.setOnKeyPressed((event) -> {
@@ -286,14 +294,43 @@ public class ViewController {
                     player = playerName.getText();
                     createXML();
                     playerName.setText("");
+                    newGameLabel.setVisible(true);
+                    highScoreLabel.setVisible(true);
+                    optionsLabel.setVisible(true);
+                    exitLabel.setVisible(true);
+                    backLabel.setVisible(false);
+                    playerName.setVisible(false);
+                    playerNameLabel.setVisible(false);
+                    backLabel.setVisible(false);
+                    leadBoardLabel.setVisible(false);
                 }
             });
+        });
+    }
+
+    public void resumeMenu() {
+        if (!backLabel.isVisible())
+            resumeLabel.setVisible(true);
+
+        resumeLabel.setOnMouseEntered(MouseEvent -> {
+            resumeLabel.setScaleX(1.5);
+            resumeLabel.setScaleY(1.5);
+        });
+
+        resumeLabel.setOnMouseExited(MouseEvent -> {
+            resumeLabel.setScaleX(1);
+            resumeLabel.setScaleY(1);
+        });
+
+        resumeLabel.setOnMouseClicked(MouseEvent -> {
+            running = true;
+            hideLabels();
         });
     }
 
     private void createXML(){
         highScore.setName(player);
         highScore.setScore(score);
-        higScoreToXML.jaxbObjectToXML(highScore);
+        highScoreToXML.jaxbObjectToXML(highScore);
     }
 }

@@ -6,7 +6,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
-public class HigScoreToXML {
+public class HighScoreToXML {
     private static final String FILE_NAME = "highscore.xml";
 
     public static HighScore jaxbXMLToObject() {

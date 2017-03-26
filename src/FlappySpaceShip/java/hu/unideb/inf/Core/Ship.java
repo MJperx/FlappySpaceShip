@@ -15,9 +15,7 @@ public class Ship extends Pane {
     Rectangle rect;
 
     public Ship() {
-        Image img = new Image(getClass().getResource("/images/spaceShip.png").toExternalForm());
         rect = new Rectangle(width, height);
-        rect.setFill(new ImagePattern(img, 0, 0, 1, 1, true));
         velocity = new Point2D(0,0);
         setTranslateX(100);
         setTranslateY(300);
@@ -31,16 +29,15 @@ public class Ship extends Pane {
                     if (getTranslateX() + width == w.getTranslateX()) {
                         Main.running = false;
                         Main.failGame = true;
-                        setTranslateX(getTranslateX()-1);
+                        setTranslateX(getTranslateX()+1);
                         return;
                     }
                 }
 
-                if (getTranslateX() + width == w.getTranslateX()) {
-                    Main.score = Main.score + 1;
+                if (getTranslateX()== w.getTranslateX()) {
+                    Main.score++;
                 }
             }
-
             setTranslateX(getTranslateX()+1);
         }
     }
@@ -76,6 +73,10 @@ public class Ship extends Pane {
 
     public void jump() {
         velocity = new Point2D(3,-15);
+    }
+
+    public void stop() {
+
     }
 
     public void shipNull(){
