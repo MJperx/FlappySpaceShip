@@ -1,9 +1,7 @@
 package hu.unideb.inf.Core;
 
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 public class Ship extends Pane {
@@ -19,12 +17,12 @@ public class Ship extends Pane {
         velocity = new Point2D(0,0);
         setTranslateX(100);
         setTranslateY(300);
-        getChildren().addAll(rect);
+        getChildren().add(rect);
     }
 
     public void moveX(int value) {
         for (int i = 0; i < value; i++) {
-            for (Wall w : Main.walls ) {
+            for (Wall w : Main.walls) {
                 if (getBoundsInParent().intersects(w.getBoundsInParent())) {
                     if (getTranslateX() + width == w.getTranslateX()) {
                         Main.running = false;
@@ -33,12 +31,21 @@ public class Ship extends Pane {
                         return;
                     }
                 }
+            }
 
+            for (Wall w : Main.walls2){
                 if (getTranslateX()== w.getTranslateX()) {
                     Main.score++;
                 }
             }
             setTranslateX(getTranslateX()+1);
+
+            for (Medal m : Main.medals) {
+                if (getBoundsInParent().intersects(m.getBoundsInParent())){
+                    Main.medalScore++;
+                    m.setVisible(false);
+                }
+            }
         }
     }
 
@@ -73,10 +80,6 @@ public class Ship extends Pane {
 
     public void jump() {
         velocity = new Point2D(3,-15);
-    }
-
-    public void stop() {
-
     }
 
     public void shipNull(){

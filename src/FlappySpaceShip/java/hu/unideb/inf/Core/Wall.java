@@ -9,10 +9,10 @@ public class Wall extends Pane{
 
     public static int pipeWidth = 50;
 
-    private static final String pipe_0_URL = "/images/pipe_0.png";
-    private static final String pipe_1_URL = "/images/pipe_1.png";
+    private static final String pipe_0_URL = "pipe_0.png";
+    private static final String pipe_1_URL = "pipe_1.png";
 
-    Rectangle rect;
+    private Rectangle rect;
     public int height;
     public int orientation;
 
@@ -21,8 +21,8 @@ public class Wall extends Pane{
         this.height = height;
         this.orientation = orientation;
 
-        Image img_0 = new Image(getClass().getResource(pipe_0_URL).toExternalForm());
-        Image img_1 = new Image(getClass().getResource(pipe_1_URL).toExternalForm());
+        Image img_0 = new Image(getClass().getResourceAsStream(pipe_0_URL));
+        Image img_1 = new Image(getClass().getResourceAsStream(pipe_1_URL));
 
         rect = new Rectangle(pipeWidth, height);
 
@@ -31,6 +31,12 @@ public class Wall extends Pane{
         } else if (orientation == 1){
             rect.setFill(new ImagePattern(img_1, 0, 0, 1, 1, true));
         }
+
+        /*if (number > 1 && number < 10) {
+            rect.setRotationAxis(Rotate.Z_AXIS);
+            rect.setRotate(-25 + 50 * Math.random());
+            rect.setTranslateY(-40);
+        }*/
 
         getChildren().add(rect);
     }
