@@ -1,0 +1,49 @@
+<configuration scan="false">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %boldBlue(%.-1level) %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE1" class="ch.qos.logback.core.FileAppender">
+        <file>info.log</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE2" class="ch.qos.logback.core.FileAppender">
+        <file>fail.log</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.GEventEvaluator">
+                <expression>e.message.toLowerCase().contains("fail")</expression>
+            </evaluator>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <root level="ALL">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE1" />
+        <appender-ref ref="FILE2" />
+    </root>
+    <logger name="debugLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE1" />
+    </logger>
+    <logger name="org.hibernate" level="DEBUG" additivity="false" />
+    <logger name="hu.unideb.inf" level="ALL" additivity="true" />
+    <logger name="hu.unideb.inf.Dao" level="ALL" additivity="true" />
+    <logger name="hu.unideb.inf.Core" level="ALL" additivity="true" />
+</configuration>
