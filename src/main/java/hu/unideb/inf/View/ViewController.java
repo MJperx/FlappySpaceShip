@@ -12,6 +12,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,9 @@ import static hu.unideb.inf.Core.Main.*;
  * ViewController class implement the graphical elements.
  */
 public class ViewController {
+
+    /** Logger for logging.*/
+    private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private HighScoreDAOImp highScoreDAOImp = new HighScoreDAOImp();
     private ArrayList<HighScore> highScoreArrayList;
@@ -180,6 +185,7 @@ public class ViewController {
      * Refreshing the content of the table.
      */
     private void refreshTable(){
+        logger.debug("Refreshing table...");
         highScoreArrayList = highScoreDAOImp.getAllHighScores().getHighScore();
         lista = FXCollections.observableArrayList();
         for (HighScore highScore : highScoreArrayList) {
@@ -187,6 +193,7 @@ public class ViewController {
         }
         listView.setItems(lista);
         listView.refresh();
+        logger.debug("Table refreshed.");
     }
 
     /**
@@ -227,6 +234,7 @@ public class ViewController {
         });
 
         newGameLabel.setOnMouseClicked(MouseEvent -> {
+            logger.info("New game.");
             if (!failGame) {
                 running = true;
                 score = 0;
@@ -258,6 +266,7 @@ public class ViewController {
         });
 
         highScoreLabel.setOnMouseClicked(MouseEvent -> {
+            logger.info("Highscore menu.");
             isHighScore = true;
 
             refreshTable();
@@ -299,6 +308,7 @@ public class ViewController {
         });
 
         optionsLabel.setOnMouseClicked(MouseEvent -> {
+            logger.info("Options menu.");
             isOptions = true;
             optionsLabel.setFont(Font.font("Press Start 2P", 40));
             optionsLabel.setTranslateX(270);
@@ -338,9 +348,10 @@ public class ViewController {
             exitLabel.setScaleY(1);
         });
 
-        exitLabel.setOnMouseClicked(MouseEvent ->
-                System.exit(0)
-        );
+        exitLabel.setOnMouseClicked(MouseEvent -> {
+            logger.info("Exiting application!");
+            System.exit(0);
+        });
     }
 
     /**
@@ -358,6 +369,7 @@ public class ViewController {
         });
 
         backLabel.setOnMouseClicked(MouseEvent -> {
+            logger.debug("Back to a previous menu.");
             isOptions = false;
             isHighScore = false;
             if (!running && !failGame) {
@@ -372,9 +384,9 @@ public class ViewController {
                 optionsLabel.setTranslateY(500);
             }
 
-            /*if (!isHighScore) {
+            if (!isHighScore) {
                 leadBoardLabel.setVisible(false);
-            }*/
+            }
 
             if (score > 0 && isHighScore) {
                 leadBoardLabel.setVisible(true);
@@ -431,7 +443,6 @@ public class ViewController {
             backMenu();
             playerName.setOnKeyPressed((event) -> {
                 if(event.getCode() == KeyCode.ENTER) {
-                    System.out.println(playerName.getText() + " " + score);
                     player = playerName.getText();
                     Main.initData(player,Main.score);
                     playerName.setText("");
@@ -468,6 +479,7 @@ public class ViewController {
         });
 
         resumeLabel.setOnMouseClicked(MouseEvent -> {
+            logger.debug("Playing again.");
             running = true;
             hideLabels();
         });

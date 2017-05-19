@@ -1,10 +1,12 @@
 package hu.unideb.inf.View;
 
+import hu.unideb.inf.Core.Main;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import static hu.unideb.inf.Core.Main.running;
@@ -14,8 +16,8 @@ import static hu.unideb.inf.Core.Main.running;
  */
 public class MediaController {
 
-    //private static final Logger LOG = LoggerFactory.getLogger(MediaController.class);
-
+    /** Logger for logging.*/
+    private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private static final String backgroundURL = "bg2.png";
     private static final String mainMusicURL = "mainMusic.wav";

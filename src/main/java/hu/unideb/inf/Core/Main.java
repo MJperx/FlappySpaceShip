@@ -20,6 +20,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 import static java.lang.Math.random;
 
 /**
@@ -30,6 +34,8 @@ import static java.lang.Math.random;
  */
 public class Main extends Application {
 
+    /** Logger for logging.*/
+    private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private Ship ship = new Ship();
     private ViewController viewController = new ViewController();
@@ -95,6 +101,7 @@ public class Main extends Application {
     private Parent createContent(){
         gameRoot.setPrefSize(winWidth, winHeight);
 
+        logger.debug("Creating walls...");
         for (int i = 0; i < 100; i++) {
             int enter = (int)(random()*100+100);
             int height = new Random().nextInt(winHeight-enter);
@@ -112,6 +119,8 @@ public class Main extends Application {
             gameRoot.getChildren().addAll(wall,wall2);
         }
 
+        logger.debug("Walls are created.");
+
         for (int i = 0; i < 10; i++){
             Random random = new Random();
             Medal medal = new Medal();
@@ -121,11 +130,6 @@ public class Main extends Application {
             //gameRoot.getChildren().addAll(medal);
         }
 
-        /*
-          walls2.get(3).setRotationAxis(Rotate.Z_AXIS);
-          walls2.get(3).setRotate(-25 + 50 * Math.random());
-          walls2.get(3).setTranslateY(-40);
-        */
         appRoot.setBackground(mediaController.bg);
 
         gameRoot.getChildren().add(ship);
@@ -217,6 +221,7 @@ public class Main extends Application {
             }
 
             if (running && event.getCode() == KeyCode.ESCAPE){
+                logger.debug("Game paused.");
                 running = false;
                 failGame = false;
                 viewController.newGame(ship);
@@ -248,6 +253,7 @@ public class Main extends Application {
      * @param args Arguments.
      */
     public static void main(String[] args) {
+        logger.info("Application started!");
         launch(args);
     }
 }

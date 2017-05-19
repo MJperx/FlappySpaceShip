@@ -1,5 +1,8 @@
 package hu.unideb.inf.Dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -19,6 +22,8 @@ import javax.xml.bind.Unmarshaller;
  *
  */
 public class HighScoreDAOImp implements HighScoreDAO {
+    /** Logger for logging.*/
+    private static Logger logger = LoggerFactory.getLogger( HighScoreDAOImp.class );
 
     @Override
     public void addHighScore(HighScore highScore) {
@@ -34,24 +39,21 @@ public class HighScoreDAOImp implements HighScoreDAO {
             // for getting nice formatted output
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-            //URL resourceUrl = getClass().getResource("HighScores.xml");
             URL resourceUrl = getClass().getResource("HighScores.xml");
 
             File file = new File(resourceUrl.toURI());
             OutputStream XMLfile = new FileOutputStream(file);
-            System.out.println(XMLfile);
+            //System.out.println(XMLfile);
             jaxbMarshaller.marshal(highScores, file);
-            jaxbMarshaller.marshal(highScores, System.out);
+            //jaxbMarshaller.marshal(highScores, System.out);
             XMLfile.close();
-
+            logger.info("Add new HighScore: " + highScore.getName() + "score: " + highScore.getScore());
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logger.error("JAXB Exception during marshalling.");
         } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("URISyntax Exception during marshalling.");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IO Exception during marshalling.");
         }
     }
 
@@ -66,9 +68,9 @@ public class HighScoreDAOImp implements HighScoreDAO {
             highScores = (HighScores) jaxbUnmarshaller.unmarshal(XMLfile);
             XMLfile.close();
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logger.error("JAXB Exception during unmarshalling.");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IO Exception during unmarshalling.");
         }
         return highScores;
     }

@@ -3,6 +3,8 @@ package hu.unideb.inf.Core;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Ship class.
@@ -10,6 +12,9 @@ import javafx.scene.shape.Rectangle;
  * @author MJ
  */
 public class Ship extends Pane {
+
+    /** Logger for logging.*/
+    private static Logger logger = LoggerFactory.getLogger( Ship.class );
 
     /** Width of the ship. */
     public static int width = 30;
@@ -25,11 +30,13 @@ public class Ship extends Pane {
      * Constructor of the Ship class.
      */
     public Ship() {
+        logger.debug("Creating ship...");
         rect = new Rectangle(width, height);
         velocity = new Point2D(0,0);
         setTranslateX(100);
         setTranslateY(300);
         getChildren().add(rect);
+        logger.debug("Ship created.");
     }
 
     /**
