@@ -63,13 +63,6 @@ public class Ship extends Pane {
                 }
             }
             setTranslateX(getTranslateX()+1);
-
-            for (Medal m : Main.medals) {
-                if (getBoundsInParent().intersects(m.getBoundsInParent())){
-                    //Main.medalScore++;
-                    m.setVisible(false);
-                }
-            }
         }
     }
 

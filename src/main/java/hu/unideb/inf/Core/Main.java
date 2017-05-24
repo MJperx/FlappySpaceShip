@@ -60,9 +60,6 @@ public class Main extends Application {
     /** List of the pipes. */
     public static final ArrayList<Wall> walls2 = new ArrayList<>();
 
-    /** List of the medals. */
-    public static final ArrayList<Medal> medals = new ArrayList<>();
-
     /** The game is running or not. */
     public static boolean running = false;
 
@@ -78,8 +75,8 @@ public class Main extends Application {
     /** If true can play effects. */
     public static boolean effectPlaying = false;
 
-    Image img_g = new Image(getClass().getResourceAsStream("spaceShip.png"));
-    Image img_r = new Image(getClass().getResourceAsStream("spaceShip_r.png"));
+    private Image img_g = new Image(getClass().getResourceAsStream("spaceShip.png"));
+    private Image img_r = new Image(getClass().getResourceAsStream("spaceShip_r.png"));
 
     /**
      * Add a highscore to the HighScores.xml.
@@ -120,15 +117,6 @@ public class Main extends Application {
         }
 
         logger.debug("Walls are created.");
-
-        for (int i = 0; i < 10; i++){
-            Random random = new Random();
-            Medal medal = new Medal();
-            medal.setTranslateX(random.nextInt(200)*i+winHeight);
-            medal.setTranslateY(300);
-            //medals.add(medal);
-            //gameRoot.getChildren().addAll(medal);
-        }
 
         appRoot.setBackground(mediaController.bg);
 
