@@ -146,7 +146,7 @@ public class ViewController {
         optionsLabel.setVisible(false);
 
         listView.setStyle("-fx-font-family: 'Press Start 2P'; -fx-font-size: 20px; -fx-text-fill: white; " +
-                          "-fx-background-color: transparent; -fx-base: transparent;"+
+                          "-fx-background-color: transparent; -fx-base: rgba(0,0,0,0);"+
                           "-fx-table-header-border-color: transparent; -fx-border-color: transparent; " +
                           "-fx-table-cell-border-color: transparent; -fx-control-inner-background: transparent;" +
                           "-fx-translate-x: 240; -fx-translate-y: 300; -fx-pref-width: 450; -fx-pref-height: 262;");
@@ -170,6 +170,9 @@ public class ViewController {
 
         listView.getColumns().addAll(name, score);
 
+
+        score.setStyle("-fx-background-color: transparent;");
+        name.setStyle("-fx-background-color: transparent;");
 
         highScoreArrayList = highScoreDAOImp.getAllHighScores().getHighScore();
         lista = FXCollections.observableArrayList();
