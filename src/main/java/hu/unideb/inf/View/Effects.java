@@ -7,7 +7,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
- * Effect class. Implements many effects for a better visual content.
+ * The {@code Effect} class implements many effects for a better visual content.
+ * @author MJ
  */
 public class Effects {
 
@@ -15,21 +16,18 @@ public class Effects {
      * Map t....
      *
      * @param value The value.
-     *
      * @param targetStart Start.
-     *
      * @return The mapped value.
      */
     private static double map(double value, double targetStart) {
-        return targetStart + (1 - targetStart) * ((value - 0) / 360);
+        return targetStart + (1 - targetStart) * (value / 360);
     }
 
-    /** ScaleTransition. */
+    /** Creates an empty {@link ScaleTransition}. */
     private ScaleTransition st = new ScaleTransition();
 
     /**
-     * Play scale effect on a label.
-     *
+     * Play scale effect on a {@link Label}.
      * @param label A label.
      */
     public void scaleEffect(Label label){
@@ -45,22 +43,19 @@ public class Effects {
     }
 
     /**
-     * Generates a random ColorAdjust the a ship.
-     *
-     * @return The new color.
+     * Generates a random {@link ColorAdjust} the a ship.
+     * @return The new color for the ship.
      */
     public static ColorAdjust randomColor(){
         ColorAdjust blackout = new ColorAdjust();
         Color color = Color.color(Math.random(), Math.random(), Math.random());
         double hue = map( (color.getHue() + 180) % 360, -1);
         blackout.setHue(hue);
-
         return blackout;
     }
 
     /**
-     * Generates a random color.
-     *
+     * Generates a random {@link Color}.
      * @return A new color.
      */
     public static Color randomTextColor(){

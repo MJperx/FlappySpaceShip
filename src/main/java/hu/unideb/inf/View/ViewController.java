@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import static hu.unideb.inf.Core.Main.*;
 
 /**
- * ViewController class implement the graphical elements.
+ * The {@code ViewController} class implement the graphical elements.
+ * @author MJ
  */
 public class ViewController {
 
-    /** Logger for logging.*/
+    /** {@link Logger} for logging.*/
     private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private HighScoreDAOImp highScoreDAOImp = new HighScoreDAOImp();
@@ -77,22 +78,18 @@ public class ViewController {
     public TextField playerName = new TextField();
 
     /** Highscore table. */
-    public TableView<HighScore> listView = new TableView<>();
+    public TableView<HighScore> tableView = new TableView<>();
 
     /** Name of the player. */
     private static String player;
 
-    private HighScore highScore = new HighScore();
-
-    /** Constructor. */
+    /** Creates an empty instance of {@code ViewController}. */
     public ViewController() {
         init();
         initTable();
     }
 
-    /**
-     * Initialize the properties of the JavaFX elements.
-     */
+    /** Set the stlye to the elements. */
     private void init() {
         playerNameLabel.setStyle("-fx-translate-x: 310; -fx-translate-y: 405; -fx-text-fill: white;  -fx-font-family: 'Press Start 2P'; -fx-font-size: 20px;");
         playerNameLabel.setVisible(false);
@@ -145,18 +142,16 @@ public class ViewController {
         optionsLabel.setTranslateY(500);
         optionsLabel.setVisible(false);
 
-        listView.setStyle("-fx-font-family: 'Press Start 2P'; -fx-font-size: 20px; -fx-text-fill: white; " +
+        tableView.setStyle("-fx-font-family: 'Press Start 2P'; -fx-font-size: 20px; -fx-text-fill: white; " +
                           "-fx-background-color: transparent; -fx-base: rgba(0,0,0,0);"+
                           "-fx-table-header-border-color: transparent; -fx-border-color: transparent; " +
                           "-fx-table-cell-border-color: transparent; -fx-control-inner-background: transparent;" +
                           "-fx-translate-x: 240; -fx-translate-y: 300; -fx-pref-width: 450; -fx-pref-height: 262;");
-        listView.setVisible(false);
-        listView.setSelectionModel(null);
+        tableView.setVisible(false);
+        tableView.setSelectionModel(null);
     }
 
-    /**
-     * Initialize the table and load content.
-     */
+    /** Initialize the table and load content. */
     private void initTable() {
         TableColumn name = new TableColumn("");
         name.setMinWidth(100);
@@ -168,7 +163,7 @@ public class ViewController {
         score.setCellValueFactory(
                 new PropertyValueFactory<>("score"));
 
-        listView.getColumns().addAll(name, score);
+        tableView.getColumns().addAll(name, score);
 
 
         score.setStyle("-fx-background-color: transparent;");
@@ -180,28 +175,24 @@ public class ViewController {
             lista.add(highScore);
         }
 
-        listView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        listView.setItems(lista);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableView.setItems(lista);
     }
 
-    /**
-     * Refreshing the content of the table.
-     */
-    private void refreshTable(){
+    /** Refreshing the content of the table. */
+    public void refreshTable(){
         logger.debug("Refreshing table...");
         highScoreArrayList = highScoreDAOImp.getAllHighScores().getHighScore();
         lista = FXCollections.observableArrayList();
         for (HighScore highScore : highScoreArrayList) {
             lista.add(highScore);
         }
-        listView.setItems(lista);
-        listView.refresh();
+        tableView.setItems(lista);
+        tableView.refresh();
         logger.debug("Table refreshed.");
     }
 
-    /**
-     * Hide the specified labels.
-     */
+    /** Hide the specified labels. */
     private void hideLabels() {
         descLabel.setVisible(false);
         failLabel.setVisible(false);
@@ -214,12 +205,11 @@ public class ViewController {
         playerName.setVisible(false);
         playerNameLabel.setVisible(false);
         resumeLabel.setVisible(false);
-        listView.setVisible(false);
+        tableView.setVisible(false);
     }
 
     /**
      * Play scale effect to the newGameLabel or begins a new game.
-     *
      * @param ship The spaceship.
      */
     public void newGame(Ship ship) {
@@ -251,9 +241,7 @@ public class ViewController {
         });
     }
 
-    /**
-     * Play scale effect to the highScoreLabel or refreshing the content.
-     */
+    /** Play scale effect to the {@link ViewController#highScoreLabel} or refreshing the content. */
     public void highScore() {
         if (!backLabel.isVisible())
             highScoreLabel.setVisible(true);
@@ -277,7 +265,7 @@ public class ViewController {
             highScoreLabel.setTranslateX(320);
             highScoreLabel.setTranslateY(250);
 
-            listView.setVisible(true);
+            tableView.setVisible(true);
             backLabel.setVisible(true);
             failLabel.setVisible(false);
             newGameLabel.setVisible(false);
@@ -293,9 +281,7 @@ public class ViewController {
         });
     }
 
-    /**
-     * Play scale effect to the optionsLabel or opening the options menu.
-     */
+    /** Play scale effect to the {@link ViewController#optionsLabel} or opening the options menu. */
     public void optionsMenu() {
         if (!backLabel.isVisible())
             optionsLabel.setVisible(true);
@@ -329,14 +315,12 @@ public class ViewController {
             playerName.setVisible(false);
             playerNameLabel.setVisible(false);
             resumeLabel.setVisible(false);
-            listView.setVisible(false);
+            tableView.setVisible(false);
             backMenu();
         });
     }
 
-    /**
-     * Play scale effect to the exitLabel or close the game.
-     */
+    /** Play scale effect to the {@link ViewController#exitLabel} or close the game. */
     public void exit() {
         if (!backLabel.isVisible())
             exitLabel.setVisible(true);
@@ -357,9 +341,7 @@ public class ViewController {
         });
     }
 
-    /**
-     * Play scale effect to the backLabel or back to the previous menu.
-     */
+    /** Play scale effect to the {@link ViewController#backLabel} or back to the previous menu. */
     public void backMenu() {
         backLabel.setOnMouseEntered(MouseEvent -> {
             backLabel.setScaleY(1.5);
@@ -408,15 +390,13 @@ public class ViewController {
             playerName.setVisible(false);
             playerNameLabel.setVisible(false);
             resumeLabel.setVisible(false);
-            listView.setVisible(false);
+            tableView.setVisible(false);
             highScoreLabel.setTranslateX(320);
             highScoreLabel.setTranslateY(450);
         });
     }
 
-    /**
-     * Play scale effect to the leadBoardLabel or add new highscore the the HighScores.xml.
-     */
+    /** Play scale effect to the {@link ViewController#leadBoardLabel} or add new highscore the the HighScores.xml. */
     public void addToLeadBoardMenu() {
         if (score >= 1 && !isHighScore && !isOptions)
             leadBoardLabel.setVisible(true);
@@ -442,12 +422,12 @@ public class ViewController {
             exitLabel.setVisible(false);
             leadBoardLabel.setVisible(false);
             resumeLabel.setVisible(false);
-            listView.setVisible(false);
+            tableView.setVisible(false);
             backMenu();
             playerName.setOnKeyPressed((event) -> {
                 if(event.getCode() == KeyCode.ENTER) {
                     player = playerName.getText();
-                    Main.initData(player,Main.score);
+                    initData(player,Main.score);
                     playerName.setText("");
                     newGameLabel.setVisible(true);
                     highScoreLabel.setVisible(true);
@@ -457,16 +437,14 @@ public class ViewController {
                     playerName.setVisible(false);
                     playerNameLabel.setVisible(false);
                     backLabel.setVisible(false);
-                    listView.setVisible(false);
+                    tableView.setVisible(false);
                     leadBoardLabel.setVisible(false);
                 }
             });
         });
     }
 
-    /**
-     * Play scale effect to the highScoreLabel or pausing the game.
-     */
+    /** Play scale effect to the {@link ViewController#highScoreLabel} or pausing the game. */
     public void resumeMenu() {
         if (!backLabel.isVisible())
             resumeLabel.setVisible(true);

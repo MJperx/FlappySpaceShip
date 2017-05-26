@@ -14,15 +14,12 @@ import javax.xml.bind.Unmarshaller;
 
 
 /**
- * This class implements the HighScoreDAO interface.
- *
+ * The {@code HighScoreDAOImp} class implements the {@link HighScoreDAO} interface.
  * Read and write to HighScore.xml file.
- *
  * @author MJ
- *
  */
 public class HighScoreDAOImp implements HighScoreDAO {
-    /** Logger for logging.*/
+    /** {@link Logger} for logging.*/
     private static Logger logger = LoggerFactory.getLogger( HighScoreDAOImp.class );
 
     @Override
@@ -43,11 +40,9 @@ public class HighScoreDAOImp implements HighScoreDAO {
 
             File file = new File(resourceUrl.toURI());
             OutputStream XMLfile = new FileOutputStream(file);
-            //System.out.println(XMLfile);
             jaxbMarshaller.marshal(highScores, file);
-            //jaxbMarshaller.marshal(highScores, System.out);
             XMLfile.close();
-            logger.info("Add new HighScore: " + highScore.getName() + "score: " + highScore.getScore());
+            logger.info("Add new HighScore: " + highScore.getName() + " score: " + highScore.getScore());
         } catch (JAXBException e) {
             logger.error("JAXB Exception during marshalling.");
         } catch (URISyntaxException e) {
@@ -64,7 +59,6 @@ public class HighScoreDAOImp implements HighScoreDAO {
             JAXBContext jaxbContext = JAXBContext.newInstance(HighScores.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             InputStream XMLfile = getClass().getResourceAsStream("HighScores.xml");
-
             highScores = (HighScores) jaxbUnmarshaller.unmarshal(XMLfile);
             XMLfile.close();
         } catch (JAXBException e) {

@@ -1,22 +1,18 @@
 package hu.unideb.inf.Dao;
 
 /**
- * Interface for DAO implementation.
- *
+ * The {@code HighScoreDAO} is an Interface for DAO implementation.
  * @author MJ
- *
  */
 public interface HighScoreDAO {
     /**
-     * Write a new HighScore to HighScore.xml.
-     *
+     * Write a new {@link HighScore} to HighScore.xml.
      * @param highScore A highscore.
      */
     void addHighScore(HighScore highScore);
 
     /**
-     * Read HighScores from HighScore.xml.
-     *
+     * Read {@link HighScore} objects from HighScore.xml.
      * @return All the highscores.
      */
     HighScores getAllHighScores();

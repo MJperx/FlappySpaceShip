@@ -28,13 +28,11 @@ import static java.lang.Math.random;
 
 /**
  * This class is the Main class of the application.
- *
  * @author MJ
- *
  */
 public class Main extends Application {
 
-    /** Logger for logging.*/
+    /** {@link Logger} for logging.*/
     private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private Ship ship = new Ship();
@@ -80,9 +78,7 @@ public class Main extends Application {
 
     /**
      * Add a highscore to the HighScores.xml.
-     *
      * @param player Name of the player.
-     *
      * @param score The reached score.
      */
     public static void initData(String player, int score) {
@@ -125,7 +121,7 @@ public class Main extends Application {
                                      viewController.newGameLabel, viewController.highScoreLabel, viewController.optionsLabel,
                                      viewController.exitLabel, viewController.backLabel, viewController.onButton, viewController.soundText,
                                      viewController.leadBoardLabel, viewController.doneLabel, viewController.playerName,
-                                     viewController.playerNameLabel, viewController.resumeLabel, viewController.listView
+                                     viewController.playerNameLabel, viewController.resumeLabel, viewController.tableView
                                      );
 
         return appRoot;
@@ -237,7 +233,6 @@ public class Main extends Application {
 
     /**
      * Main method.
-     *
      * @param args Arguments.
      */
     public static void main(String[] args) {

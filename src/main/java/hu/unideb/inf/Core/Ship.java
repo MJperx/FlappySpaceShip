@@ -7,8 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Ship class.
- *
+ * The {@code Ship} class create a rectangle.
  * @author MJ
  */
 public class Ship extends Pane {
@@ -27,7 +26,8 @@ public class Ship extends Pane {
     Rectangle rect;
 
     /**
-     * Constructor of the Ship class.
+     * Creates an instance of the {@code Ship} class and
+     * sets the main propeties of the rectangle.
      */
     public Ship() {
         logger.debug("Creating ship...");
@@ -40,9 +40,8 @@ public class Ship extends Pane {
     }
 
     /**
-     * Moves the ship at the X axis.
-     *
-     * @param value The value.
+     * Moves the ship to the specified location in the x axis.
+     * @param value the X coordinate of the new location
      */
     public void moveX(int value) {
         for (int i = 0; i < value; i++) {
@@ -67,9 +66,8 @@ public class Ship extends Pane {
     }
 
     /**
-     * Moves the ship at the Y axis.
-     *
-     * @param value The value.
+     * Moves the ship to the specified location in the Y axis.
+     * @param value the Y coordinate of the new location
      */
     public void moveY(int value) {
         boolean moveDown = value >0;
@@ -100,16 +98,12 @@ public class Ship extends Pane {
         }
     }
 
-    /**
-     * Set the velocity of the ship.
-     */
+    /** Set the velocity of the ship. */
     public void jump() {
         velocity = new Point2D(3,-15);
     }
 
-    /**
-     * Set the ship to the original position.
-     */
+    /** Set the ship to the original position. */
     public void shipNull(){
         velocity.add(0,0);
         setTranslateX(100);

@@ -7,9 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class store data about winner of a match.
- *
  * @author MJ
- *
  */
 @XmlRootElement
 public class HighScore {
@@ -18,17 +16,16 @@ public class HighScore {
     private SimpleStringProperty date;
 
     /**
-     * Get the date.
-     *
-     * @return The date.
+     * Get the date of the high score.
+     * @return The date of the high score.
      */
     public String getDate() {
         return date.get();
     }
+
     /**
-     * Sets the date.
-     *
-     * @param date The date.
+     * Sets the date to the high score.
+     * @param date The specified date.
      */
     @XmlElement
     public void setDate(String date) {
@@ -36,18 +33,16 @@ public class HighScore {
     }
 
     /**
-     * Gets the score.
-     *
-     * @return The score.
+     * Gets the score of the high score.
+     * @return The score of the high score.
      */
     public String getScore() {
         return score.get();
     }
 
     /**
-     * Sets the score.
-     *
-     * @param score Score.
+     * Sets the score to the high score.
+     * @param score The specified score.
      */
     @XmlElement
     public void setScore(String score) {
@@ -56,8 +51,7 @@ public class HighScore {
 
     /**
      * Gets the name of the player.
-     *
-     * @return The name.
+     * @return The name of the player.
      */
     public String getName() {
         return name.get();
@@ -65,7 +59,6 @@ public class HighScore {
 
     /**
      * Sets the name of the player.
-     *
      * @param name The name of the player.
      */
     @XmlElement
@@ -73,14 +66,11 @@ public class HighScore {
         this.name.set(name);
     }
 
-
     /**
-     * Constructor of the Highscore class.
-     *
-     * @param date Date.
-     *
+     * Creates an instance of the {@code HighScore} class and
+     * sets the name, score and date.
+     * @param date Actual Date.
      * @param name Name of the player.
-     *
      * @param score Score of the player.
      **/
     public HighScore(String name, String score, String date) {
@@ -91,16 +81,6 @@ public class HighScore {
         this.name.set(name);
         this.score.set(score);
         this.date.set(date);
-    }
-
-
-    /**
-     * Constructor of the Highscore class.
-     */
-    public HighScore(){
-        this.name = new SimpleStringProperty();
-        this.score = new SimpleStringProperty();
-        this.date = new SimpleStringProperty();
     }
 
     @Override

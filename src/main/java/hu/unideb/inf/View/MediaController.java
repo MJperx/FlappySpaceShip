@@ -12,11 +12,12 @@ import org.slf4j.LoggerFactory;
 import static hu.unideb.inf.Core.Main.running;
 
 /**
- * MediaController class. Initialize the used medias.
+ * The {@code MediaController} class initialize the used sounds and images.
+ * @author MJ
  */
 public class MediaController {
 
-    /** Logger for logging.*/
+    /** {@link Logger} for logging.*/
     private static Logger logger = LoggerFactory.getLogger( Main.class );
 
     private static final String backgroundURL = "bg2.png";
@@ -26,17 +27,15 @@ public class MediaController {
     private MediaPlayer mediaPlayer;
     private MediaPlayer jumpPlayer;
 
-    /** The background of the application. */
+    /** The {@link Background} of the game. */
     public Background bg;
 
-    /** Constructor. */
+    /** Creates an empty instance of {@code MediaController}. */
     public MediaController(){
         init();
     }
 
-    /**
-     * Initialize the medias.
-     */
+    /** Initialize the medias. */
     private void init(){
         Media sound = new Media(getClass().getResource(mainMusicURL).toExternalForm());
         mediaPlayer = new MediaPlayer(sound);
@@ -50,9 +49,7 @@ public class MediaController {
         bg = new Background(bgImg);
     }
 
-    /**
-     * Plays or pause the background music.
-     */
+    /** Play or pause the background music. */
     public void onSoundButton(){
         if (ViewController.onButton.isSelected()) {
             mediaPlayer.pause();
@@ -62,9 +59,7 @@ public class MediaController {
         }
     }
 
-    /**
-     * This method plays the background music.
-     */
+    /** This method plays the background music. */
     public void playMusic(){
         if (!running){
             mediaPlayer.seek(mediaPlayer.getStartTime());
@@ -72,9 +67,7 @@ public class MediaController {
         }
     }
 
-    /**
-     * When the ship jumping play the jump music.
-     */
+    /** When the ship jumping play the jump music. */
     public void playJumpMusic(){
         if(!running){
             jumpPlayer.stop();
