@@ -16,8 +16,8 @@ public class WallTest {
     @Test
     public void testWall(){
         assertNotNull(wall);
-        assertEquals(10,wall.height);
-        assertEquals(0,wall.orientation);
+        assertEquals(10,wall.getWallHeight());
+        assertEquals(0,wall.getOrientation());
     }
 
 
