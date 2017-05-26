@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/madar94/FlappySpaceShip.svg?branch=master)](https://travis-ci.org/madar94/FlappySpaceShip)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1808a7d5d4f4935a081224128dc1bd4)](https://www.codacy.com/app/madar94/FlappySpaceShip?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=madar94/FlappySpaceShip&amp;utm_campaign=Badge_Grade)
 
 
