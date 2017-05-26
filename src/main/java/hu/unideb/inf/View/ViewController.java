@@ -188,7 +188,7 @@ public class ViewController {
             lista.add(highScore);
         }
         tableView.setItems(lista);
-        tableView.refresh();
+        //tableView.refresh();
         logger.debug("Table refreshed.");
     }
 
