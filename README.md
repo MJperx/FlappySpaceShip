@@ -20,4 +20,4 @@ This is an implementation of Flappy Bird using the JavaFX platform.
 Like the original, the user must use the space bar in order to flap the ship  to fly, while avoiding being hit by pipes.
 
 ##License
-**Apache License, Version 2.0.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
