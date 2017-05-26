@@ -67,6 +67,15 @@ public class HighScore {
     }
 
     /**
+     * Creates an empty instance of the {@code HighScore} class.
+     * */
+    public HighScore(){
+        this.name = new SimpleStringProperty();
+        this.score = new SimpleStringProperty();
+        this.date = new SimpleStringProperty();
+    }
+
+    /**
      * Creates an instance of the {@code HighScore} class and
      * sets the name, score and date.
      * @param date Actual Date.
