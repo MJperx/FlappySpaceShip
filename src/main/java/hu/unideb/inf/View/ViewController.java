@@ -90,7 +90,7 @@ public class ViewController {
     }
 
     /** Set the stlye to the elements. */
-    private void init() {
+    public void init() {
         playerNameLabel.setStyle("-fx-translate-x: 310; -fx-translate-y: 405; -fx-text-fill: white;  -fx-font-family: 'Press Start 2P'; -fx-font-size: 20px;");
         playerNameLabel.setVisible(false);
 
@@ -152,7 +152,7 @@ public class ViewController {
     }
 
     /** Initialize the table and load content. */
-    private void initTable() {
+    public void initTable() {
         TableColumn name = new TableColumn("");
         name.setMinWidth(100);
         name.setCellValueFactory(
@@ -188,7 +188,7 @@ public class ViewController {
             lista.add(highScore);
         }
         tableView.setItems(lista);
-        //tableView.refresh();
+        tableView.refresh();
         logger.debug("Table refreshed.");
     }
 
