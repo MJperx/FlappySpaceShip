@@ -191,10 +191,6 @@ a:hover { text-decoration: underline; }
 
 .site-footer-credits { color: #819198; }
 
-.div1, div2 {
-  display: inline-block;
-}
-
-.icons {
-    display: inline-block;
+.div1 {
+  display: inline;
 }
