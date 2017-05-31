@@ -8,3 +8,9 @@ script: mvn install -B
 branches:
   only:
   - master
+
+before_install:
+  - pip install --user codecov
+
+after_success:
+  - codecov
