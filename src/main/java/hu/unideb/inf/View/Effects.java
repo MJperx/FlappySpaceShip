@@ -13,11 +13,12 @@ import javafx.util.Duration;
 public class Effects {
 
     /**
-     * Map t....
+     * The Color.getHue() returns a value between 0-360.
+     * This method transform the value between 0-1.
      *
      * @param value The value.
      * @param targetStart Start.
-     * @return The mapped value.
+     * @return The transformed value.
      */
     private static double map(double value, double targetStart) {
         return targetStart + (1 - targetStart) * (value / 360);
@@ -49,7 +50,9 @@ public class Effects {
     public static ColorAdjust randomColor(){
         ColorAdjust blackout = new ColorAdjust();
         Color color = Color.color(Math.random(), Math.random(), Math.random());
+        System.out.println("color hue: " + color.getHue());
         double hue = map( (color.getHue() + 180) % 360, -1);
+        System.out.println("hue: " + hue);
         blackout.setHue(hue);
         return blackout;
     }
