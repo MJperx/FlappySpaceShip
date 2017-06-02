@@ -24,6 +24,11 @@
         <developerConnection>scm:git:git@github.com:madar94/FlappySpaceShip.git</developerConnection>
     </scm>
 
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/madar94/FlappySpaceShip</url>
+    </ciManagement>
+
     <developers>
         <developer>
             <name>József Madar</name>
